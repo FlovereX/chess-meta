@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Xcode
+DerivedData/
+build/
+*.xcuserstate
+xcuserdata/
+*.xcactivitylog
+
+# Swift
+.build/
+.swiftpm/xcode/package.xcworkspace/xcuserdata/
+
+# Credentials
+.env
+.env.*
+Secrets.xcconfig
+*.p8
+*.p12
+*.mobileprovision
