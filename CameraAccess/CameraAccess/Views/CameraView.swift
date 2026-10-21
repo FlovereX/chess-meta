@@ -108,30 +108,12 @@ struct CameraView: View {
     .navigationBarHidden(true)
     .sheet(isPresented: $showChessSnapshot) {
         if let image = chessSnapshot {
-            VStack(spacing: 20) {
-                Text("Chess Meta")
-                    .font(.largeTitle.bold())
-
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity)
-
-                Label(
-                    "Chessboard frame captured",
-                    systemImage: "checkmark.circle.fill"
-                )
-                .foregroundStyle(.green)
-
-                Text("Ready for chess recognition")
-                    .foregroundStyle(.secondary)
-
-                Button("Close") {
-                    showChessSnapshot = false
-                }
-                .buttonStyle(.borderedProminent)
+            BoardSnapshotSheet(
+                image: image,
+                config: viewModel.chessGame.config
+            ) {
+                showChessSnapshot = false
             }
-            .padding()
         }
     }
   }
@@ -366,6 +348,17 @@ struct CameraView: View {
                     "Stable detections: \(viewModel.chessGame.consistentDetections)/3"
                   )
                   .foregroundStyle(.white.opacity(0.8))
+                  
+                  GridStatusLine(status: viewModel.chessGame.gridStatus)
+                  
+                  if let board = viewModel.chessGame.verifiedBoard,
+                     let preview = viewModel.chessGame.rectifiedPreview {
+                      RectifiedBoardView(
+                        image: preview,
+                        size: 96,
+                        rotation: board.result.orientationCandidates.first ?? .r0
+                      )
+                  }
               }
           }
 

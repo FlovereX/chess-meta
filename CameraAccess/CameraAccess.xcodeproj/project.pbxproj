@@ -40,6 +40,13 @@
 		E6DA451E2E79A63100E3F688 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DA45172E79A63100E3F688 /* CardView.swift */; };
 		E6DA451F2E79A63100E3F688 /* MockDeviceKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DA451A2E79A63100E3F688 /* MockDeviceKitView.swift */; };
 		FACE0000000000000000FA02 /* TipRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FA01 /* TipRow.swift */; };
+		C4E5B0100000000000000000 /* Homography.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E5A0100000000000000000 /* Homography.swift */; };
+		C4E5B0200000000000000000 /* BoardGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E5A0200000000000000000 /* BoardGeometry.swift */; };
+		C4E5B0300000000000000000 /* GridVerificationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E5A0300000000000000000 /* GridVerificationConfig.swift */; };
+		C4E5B0400000000000000000 /* BoardRectifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E5A0400000000000000000 /* BoardRectifier.swift */; };
+		C4E5B0500000000000000000 /* GridVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E5A0500000000000000000 /* GridVerifier.swift */; };
+		C4E5B0600000000000000000 /* BoardVerificationPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E5A0600000000000000000 /* BoardVerificationPipeline.swift */; };
+		C4E5B0700000000000000000 /* BoardVerificationViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E5A0700000000000000000 /* BoardVerificationViews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +114,13 @@
 		E6DA45182E79A63100E3F688 /* MockDeviceCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDeviceCardView.swift; sourceTree = "<group>"; };
 		E6DA451A2E79A63100E3F688 /* MockDeviceKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDeviceKitView.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FA01 /* TipRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipRow.swift; sourceTree = "<group>"; };
+		C4E5A0100000000000000000 /* Homography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homography.swift; sourceTree = "<group>"; };
+		C4E5A0200000000000000000 /* BoardGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardGeometry.swift; sourceTree = "<group>"; };
+		C4E5A0300000000000000000 /* GridVerificationConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridVerificationConfig.swift; sourceTree = "<group>"; };
+		C4E5A0400000000000000000 /* BoardRectifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardRectifier.swift; sourceTree = "<group>"; };
+		C4E5A0500000000000000000 /* GridVerifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridVerifier.swift; sourceTree = "<group>"; };
+		C4E5A0600000000000000000 /* BoardVerificationPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardVerificationPipeline.swift; sourceTree = "<group>"; };
+		C4E5A0700000000000000000 /* BoardVerificationViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardVerificationViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -174,12 +188,26 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		C4E5C0100000000000000000 /* Chess */ = {
+			isa = PBXGroup;
+			children = (
+				C4E5A0100000000000000000 /* Homography.swift */,
+				C4E5A0200000000000000000 /* BoardGeometry.swift */,
+				C4E5A0300000000000000000 /* GridVerificationConfig.swift */,
+				C4E5A0400000000000000000 /* BoardRectifier.swift */,
+				C4E5A0500000000000000000 /* GridVerifier.swift */,
+				C4E5A0600000000000000000 /* BoardVerificationPipeline.swift */,
+			);
+			path = Chess;
+			sourceTree = "<group>";
+		};
 		8FD96B762E6F0A9800F56AB1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				8FFD5FF42E8422580035E446 /* Components */,
 				E6DA451B2E79A63100E3F688 /* MockDeviceKit */,
 				D7A0000000000000000000B1 /* CameraView.swift */,
+				C4E5A0700000000000000000 /* BoardVerificationViews.swift */,
 				8FFD605E2E84A2F70035E446 /* DebugMenuView.swift */,
 				8FD96B722E6F0A9800F56AB1 /* HomeScreenView.swift */,
 				8FFD605F2E84A2F70035E446 /* MainAppView.swift */,
@@ -202,6 +230,7 @@
 				8FD96B7B2E6F0A9800F56AB1 /* Info.plist */,
 				B3AD6A823086E2190011029D /* ChessGameManager.swift */,
 				B3AD6A843086E41C0011029D /* ChessBoardDetector.swift */,
+				C4E5C0100000000000000000 /* Chess */,
 			);
 			path = CameraAccess;
 			sourceTree = "<group>";
@@ -428,6 +457,13 @@
 				8FFD5FF52E8422580035E446 /* CircleButton.swift in Sources */,
 				8FFD5FF62E8422580035E446 /* CustomButton.swift in Sources */,
 				FACE0000000000000000FA02 /* TipRow.swift in Sources */,
+				C4E5B0100000000000000000 /* Homography.swift in Sources */,
+				C4E5B0200000000000000000 /* BoardGeometry.swift in Sources */,
+				C4E5B0300000000000000000 /* GridVerificationConfig.swift in Sources */,
+				C4E5B0400000000000000000 /* BoardRectifier.swift in Sources */,
+				C4E5B0500000000000000000 /* GridVerifier.swift in Sources */,
+				C4E5B0600000000000000000 /* BoardVerificationPipeline.swift in Sources */,
+				C4E5B0700000000000000000 /* BoardVerificationViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

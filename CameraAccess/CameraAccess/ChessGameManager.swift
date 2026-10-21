@@ -43,6 +43,13 @@ final class ChessGameManager {
     private(set) var consistentDetections = 0
     private(set) var calibratedCorners: BoardCorners?
     
+    private(set) var gridStatus: GridVerificationStatus = .notRun
+    private(set) var lastGridScore: Double?
+    private(set) var verifiedBoard: VerifiedBoard?
+    private(set) var rectifiedPreview: UIImage?
+    
+    var config: GridVerificationConfig = ChessGameManager.initialConfig()
+    
 
     @ObservationIgnored
     private var previousCandidate: BoardCorners?
@@ -63,6 +70,35 @@ final class ChessGameManager {
     @ObservationIgnored
     private(set) var latestSample: UIImage?
     
+    nonisolated private static func initialConfig() -> GridVerificationConfig {
+        #if DEBUG
+        return GridVerificationConfig.fromUserDefaults()
+        #else
+        return .provisional
+        #endif
+    }
+    
+    private func resetGridState() {
+        gridStatus = .notRun
+        lastGridScore = nil
+        verifiedBoard = nil
+        rectifiedPreview = nil
+    }
+    
+    private func apply(_ analysis: BoardAnalysis, gated: Bool) {
+        // Gated: only a verified board's OUTER corners reach Board Lock.
+        // Ungated: the legacy largest rectangle (candidates are sorted by size).
+        let corners = gated
+            ? analysis.best?.outerCorners
+            : analysis.candidates.first?.corners
+        updateBoardLock(with: corners)
+        
+        gridStatus = analysis.status
+        lastGridScore = analysis.best?.result.score ?? analysis.topCandidate?.result.score
+        verifiedBoard = analysis.best
+        rectifiedPreview = analysis.rectifiedPreview?.toUIImage()
+    }
+
     private func updateBoardLock(with corners: BoardCorners?) {
         guard let corners else {
             rectangleFound = false
@@ -122,6 +158,10 @@ final class ChessGameManager {
         detectedCorners = nil
         stop()
         
+        #if DEBUG
+        config = GridVerificationConfig.fromUserDefaults()
+        #endif
+        
         isActive = true
         sampledFrames = 0
         rectangleFound = false
@@ -144,6 +184,7 @@ final class ChessGameManager {
         calibratedCorners = nil
         previousCandidate = nil
         detectedCorners = nil
+        resetGridState()
 
     }
     
@@ -167,14 +208,15 @@ final class ChessGameManager {
         
         isAnalyzing = true
         let currentSession = sessionID
-        
+        let config = self.config
         
         analysisTask = Task {
-            let corners = await Task.detached(
+            let analysis = await Task.detached(
                 priority: .utility
             ) {
-                ChessBoardDetector.detectCorners(
-                    in: imageData
+                BoardVerificationPipeline.analyze(
+                    imageData: imageData,
+                    config: config
                 )
             }.value
             
@@ -185,7 +227,10 @@ final class ChessGameManager {
                 return
             }
             
-            updateBoardLock(with: corners)
+            apply(
+                analysis,
+                gated: config.gateBoardLockOnVerification
+            )
             isAnalyzing = false
             
         }
